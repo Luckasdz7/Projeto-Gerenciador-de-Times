@@ -72,13 +72,13 @@ public class TimeDAO {
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
             String linha;
             while ((linha = br.readLine()) != null) {
-                if (linha.trim().isEmpty()) continue;
+                if (linha.trim().isEmpty()) continue;//se a linha lida nao tiver nenhuma informação, o while volta
 
                 String[] partes = linha.split(";");
                 String id = partes[0];
                 String nome = partes[1];
 
-                // CORREÇÃO APLICADA AQUI: A ordem estava invertida na sua versão original
+               
                 Time time = new Time(nome, id);
 
                 if (partes.length > 2) {
@@ -104,5 +104,46 @@ public class TimeDAO {
         } catch (IOException e) {
             System.err.println("❌ Erro na leitura do arquivo: " + e.getMessage());
         }
+    }
+    
+    private void reescreverarquivo() {
+    	try(BufferedWriter bw = new BufferedWriter(new FileWriter(arquivo ,false))){
+    		
+    		StringBuilder linhatime = new StringBuilder();
+    		for( Time time : mapaTimes.values()) {
+    			linhatime.append(time.getIdentificador()).append(";").append(time.getNome());
+    			
+    			
+    			for (Jogador j : time.getJogadores()) {
+                    if (j instanceof Atacante) {
+                        Atacante a = (Atacante) j;
+                        linhatime.append("A,").append(a.getNome()).append(",").append(a.getDataNascimento()).append(",").append(a.getNro_gols()).append("|");
+                    } else if (j instanceof Goleiro) {
+                        Goleiro g = (Goleiro) j;
+                        linhatime.append("G,").append(g.getNome()).append(",").append(g.getDataNascimento()).append(",").append(g.getNro_defesas()).append("|");
+                    }
+                }
+    			bw.write(linhatime.toString());
+    			bw.newLine();
+    			
+    		}
+    		
+    	} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    public void excluir(String id) {
+    	carregarArquivos();
+    	mapaTimes.remove(id);
+    	
+    	System.out.println("removido com sucesso!");
+    	reescreverarquivo();
+    }
+    public void editar(Time time) {
+    	carregarArquivos();
+    	mapaTimes.put(time.getIdentificador(), time);
+    	
+    	reescreverarquivo();
     }
 }
