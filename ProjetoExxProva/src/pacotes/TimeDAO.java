@@ -6,9 +6,20 @@ import java.util.Map;
 
 public class TimeDAO {
     private Map<String, Time> mapaTimes = new HashMap<>();
+    
 
     
-    private File arquivo = new File("C:\\Users\\lucas\\OneDrive\\Documentos\\crackneto\\dados.txt");
+    private  Map<String, Time> getMapaTimes() {
+		return mapaTimes;
+	}
+    
+    public Time retornartime(String id) {
+    	
+    	Time t = mapaTimes.get(id);
+    	return t;
+    }
+
+	private File arquivo = new File("C:\\Users\\lucas\\OneDrive\\Documentos\\crackneto\\dados.txt");
 
     public void salvar(Time time) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(arquivo, true))) {
