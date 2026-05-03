@@ -1,31 +1,42 @@
-# ⚽ Gerenciador de Times de Futebol
+# ⚽ Gerenciador de Times
 
-Um sistema de gerenciamento de times e jogadores desenvolvido em **Java**, utilizando conceitos de Programação Orientada a Objetos (POO), persistência de dados em arquivos de texto (`.txt`) e arquitetura em camadas (DAO e BO).
+Um sistema de gerenciamento de times e jogadores desenvolvido em Java. Esta aplicação em modo console permite administrar equipes esportivas, controlando o cadastro de times e especificando as posições de seus respectivos jogadores (Atacantes e Goleiros). 
 
-## 📋 Sobre o Projeto
+O projeto foi construído aplicando princípios de **Programação Orientada a Objetos (POO)**, como herança e polimorfismo, e utiliza o padrão de arquitetura dividindo responsabilidades entre **DAO** (Data Access Object) e **BO** (Business Object), além de realizar a persistência de dados em arquivos de texto (`.txt`).
 
-Este projeto foi desenvolvido como um exercício prático para fixar conceitos fundamentais do Java. Ele permite ao usuário cadastrar times de futebol e adicionar seus respectivos jogadores (Goleiros e Atacantes), salvando as informações permanentemente no computador.
+## ✨ Funcionalidades (CRUD Completo)
 
-### ✨ Funcionalidades
+O sistema possui um menu interativo com as seguintes operações:
 
-- **Cadastro de Times:** Adiciona novos times com um identificador único e obrigatório de exatamente 10 caracteres.
-- **Cadastro de Jogadores:** Permite adicionar jogadores aos times. Os jogadores são divididos em:
-  - `Goleiro`: Armazena o número de defesas.
-  - `Atacante`: Armazena o número de gols.
-- **Consultas Otimizadas:** Busca as informações completas de um time específico a partir do seu Identificador usando `HashMap`.
-- **Persistência de Dados:** Salva e carrega os dados automaticamente a partir de um arquivo de texto (`dados.txt`).
+* **Cadastrar Time (Create):** Cria novos times com um identificador único (exatamente 10 caracteres) e adiciona jogadores (Goleiros com número de defesas ou Atacantes com número de gols).
+* **Consultar Time (Read):** Busca um time pelo seu identificador único e exibe todos os seus dados e a lista detalhada de jogadores.
+* **Editar Time (Update):** Permite buscar um time existente e atualizar o seu nome, refletindo a mudança imediatamente no banco de dados local.
+* **Excluir Time (Delete):** Remove um time e todos os seus jogadores cadastrados do sistema, apagando os registros da memória e do arquivo de persistência.
 
-## 🏗️ Arquitetura do Sistema
+## 🛠️ Tecnologias e Conceitos Utilizados
 
-O projeto foi organizado separando as responsabilidades (camadas):
+* **Linguagem:** Java
+* **Persistência de Dados:** Leitura e Escrita em arquivos de texto (`java.io.BufferedReader`, `BufferedWriter`, `FileWriter`, `FileReader`).
+* **Estruturas de Dados:** Uso de Coleções (`List`, `ArrayList`) e Mapas (`Map`, `HashMap`) para armazenamento e busca eficiente em memória.
+* **Arquitetura:** Separação de camadas (Modelos, DAO para acesso a dados, BO para regras de negócio e classe Principal para a interface com o usuário).
 
-- **Modelo (`Time`, `Jogador`, `Goleiro`, `Atacante`):** Classes que representam as entidades do sistema. Aplicação de herança e polimorfismo.
-- **Business Object (`TimeBO`):** Contém a lógica de negócio e as validações (ex: validação do ID de 10 caracteres).
-- **Data Access Object (`TimeDAO`):** Responsável por manipular a leitura e escrita no arquivo `.txt` e manter o cache dos dados na memória usando um `Map`.
-- **Principal (`Principal`):** Interface de interação com o usuário via Console (Menu interativo).
+## 📂 Estrutura do Projeto
+
+O projeto está organizado no pacote `pacotes` com as seguintes classes:
+
+* **Modelos:**
+  * `Time.java`: Representa a entidade time e guarda uma lista de jogadores.
+  * `Jogador.java`: Classe abstrata que serve de base para os atletas.
+  * `Atacante.java` / `Goleiro.java`: Classes filhas de Jogador, demonstrando herança e características específicas.
+* **Regras de Negócio e Dados:**
+  * `TimeBO.java`: Valida as informações (como o tamanho do ID) e faz a ponte entre a interface e o banco de dados.
+  * `TimeDAO.java`: Responsável por toda a manipulação do arquivo `dados.txt` (salvar, buscar, editar, excluir e recarregar dados).
+* **Interface:**
+  * `Principal.java`: Contém o método `main` e o menu interativo com o usuário utilizando `Scanner`.
 
 ## 🚀 Como Executar
 
-1. Clone este repositório em sua máquina:
+1. Certifique-se de ter o [Java JDK](https://www.oracle.com/br/java/technologies/downloads/) instalado em sua máquina.
+2. Clone este repositório:
    ```bash
-   git clone [https://github.com/seu-usuario/seu-repositorio.git](https://github.com/seu-usuario/seu-repositorio.git)
+   git clone [https://github.com/SEU_USUARIO/projeto-gerenciador-de-times.git](https://github.com/SEU_USUARIO/projeto-gerenciador-de-times.git)
