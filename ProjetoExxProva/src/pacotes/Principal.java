@@ -97,7 +97,7 @@ public class Principal {
                     boolean editandoJogadores = true;
                     while (editandoJogadores) {
                         System.out.println("\n--- Jogadores Atuais ---");
-                        
+                        // Importante: No topo do arquivo Principal.java, adicione 'import java.util.List;'
                         java.util.List<Jogador> jogadores = timeExistente.getJogadores(); 
                         
                         if (jogadores.isEmpty()) {
@@ -187,7 +187,7 @@ public class Principal {
                     }
 
                    
-                    
+                    // Depois de sair do loop dos jogadores, enviamos para o BO validar e salvar
                     try{
                     	timeBo.editarTime(timeExistente);
                     	 System.out.println("\n✅ Time atualizado e salvo com sucesso!");
@@ -201,16 +201,17 @@ public class Principal {
             	System.out.println("Coloque o ID do time a ser excluído:");
                 String idExcluir = sc.nextLine();
                 
-             
+                // Vamos usar o método que já criamos para ver se o time existe
                 Time timeExistente = timeBo.retornartime(idExcluir);
                 
                 if (timeExistente != null) {
-                   
+                    // Pede uma confirmação por segurança
                     System.out.println("CUIDADO: Você tem certeza que deseja excluir o time '" + timeExistente.getNome() + "' e todos os seus jogadores? (S/N)");
                     String confirmacao = sc.nextLine();
                     
                     if (confirmacao.equalsIgnoreCase("S")) {
-                        );
+                        // Chama o BO para excluir
+                        timeBo.excluirTime(idExcluir);
                       
                         System.out.println("Operação de exclusão cancelada.");
                     }
